@@ -17,6 +17,8 @@ export function Find() {
 
   async function handleJoinPool() {
     try {
+      setIsLoading(true);
+
       if(!code.trim()) {
         toast.show({
           title: 'Informe o código',
@@ -37,8 +39,9 @@ export function Find() {
 
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
 
-      if(error.response?.data?.message === 'Pool not found') {
+      if(error.response?.data?.message === 'Pool not found.') {
         toast.show({
           title: 'Não foi possível encontrar o bolão',
           placement: 'top',
@@ -47,7 +50,7 @@ export function Find() {
         return;
       }
 
-      if(error.response?.data?.message === 'You already joined this pool') {
+      if(error.response?.data?.message === 'You already joined this poll.') {
         toast.show({
           title: 'Você já está nesse bolão',
           placement: 'top',
@@ -74,12 +77,10 @@ export function Find() {
           placeholder="Qual o código do bolão?"
           autoCapitalize="characters"
           onChangeText={setCode}
-          value={code}
         />
 
         <Button
-          title="Buscar por código"
-          isLoading={isLoading}
+          title="BUSCAR POR CÓDIGO"
           onPress={handleJoinPool}
         />
       </VStack>
